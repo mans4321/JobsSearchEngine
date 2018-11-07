@@ -1,4 +1,3 @@
-css
 jsp
 pattern
 jr
@@ -11,7 +10,6 @@ spring
 database
 java
 git
-xml
 j2ee
 html
 mysql

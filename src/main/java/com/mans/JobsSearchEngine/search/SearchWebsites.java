@@ -1,6 +1,5 @@
 package com.mans.JobsSearchEngine.search;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
@@ -9,7 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.mans.JobsSearchEngine.model.JobDescription;
-import com.mans.JobsSearchEngineI.utility.CleanText;
+import com.mans.JobsSearchEngine.utility.CleanText;
 
 public abstract class SearchWebsites {
 
@@ -19,9 +18,8 @@ public abstract class SearchWebsites {
 	private String htmlHeader;
 	private String htmlFooter;
 
-	public SearchWebsites(List<String> cities, List<String> searchKeywords,
-			BlockingQueue<JobDescription> queue) {
-		
+	public SearchWebsites(List<String> cities, List<String> searchKeywords, BlockingQueue<JobDescription> queue) {
+
 		this.cities = cities;
 		this.queue = queue;
 		this.searchKeywords = searchKeywords;
@@ -36,7 +34,7 @@ public abstract class SearchWebsites {
 	public void search() {
 		for (String city : cities) {
 			for (String keyword : searchKeywords) {
-					crawler(keyword, city);
+				crawler(keyword, city);
 			}
 
 		}
@@ -46,10 +44,9 @@ public abstract class SearchWebsites {
 
 	protected void extract(String url, String jobDesInHtml, String companyNameInHtml, String jobTitleInHtml,
 			String cityInHtml) {
-		try{
+		try {
 			Document doc = null;
 			doc = Jsoup.connect(url).get();
-			System.out.println(url);
 			Element htmlJobDes = doc.selectFirst(jobDesInHtml);
 			String jobDes = htmlJobDes.text();
 			jobDes = CleanText.clean(jobDes);
@@ -65,11 +62,12 @@ public abstract class SearchWebsites {
 			if (city != null && city.contains(","))
 				city = city.split(",")[0];
 
-			JobDescription jobDescription = new JobDescription(jobTitle, companyName, city, jobDes,url, htmlHeader + htmlJobDes.toString() + htmlFooter);
+			JobDescription jobDescription = new JobDescription(jobTitle, companyName, city, jobDes, url,
+					htmlHeader + htmlJobDes.toString() + htmlFooter);
 			queue.add(jobDescription);
-		}catch(Exception e){
-				System.out.println("something went wrong while parsing " + url);
+		} catch (Exception e) {
+			System.out.println("something went wrong while parsing " + url);
 		}
-		
+
 	}
 }

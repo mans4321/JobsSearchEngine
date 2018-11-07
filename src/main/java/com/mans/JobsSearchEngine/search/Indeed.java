@@ -12,13 +12,11 @@ import org.jsoup.select.Elements;
 
 import com.mans.JobsSearchEngine.model.JobDescription;
 
-public class Indeed extends SearchWebsites{
+public class Indeed extends SearchWebsites {
 
+	public Indeed(List<String> cities, List<String> searchKeywords, BlockingQueue<JobDescription> queue) {
+		super(cities, searchKeywords, queue);
 
-	public Indeed(List<String> cities, List<String> searchKeywords,
-			BlockingQueue<JobDescription> queue) {
-		super(cities,searchKeywords , queue);
-		
 	}
 
 	protected void crawler(String jobDes, String city) {
@@ -56,9 +54,8 @@ public class Indeed extends SearchWebsites{
 		String jobDesInHtml = "div.jobsearch-JobComponent-description";
 		String companyNameInHtml = "div.icl-u-lg-mr--sm.icl-u-xs-mr--xs";
 		String jobTitleInHtml = "[class$='jobsearch-JobInfoHeader-title']";
-		String cityInHtml = "div.jobsearch-InlineCompanyRating > div:not(.icl-u-lg-mr--sm)";//TODO
+		String cityInHtml = "div.jobsearch-InlineCompanyRating > div:not(.icl-u-lg-mr--sm)";// TODO
 		extract(url, jobDesInHtml, companyNameInHtml, jobTitleInHtml, cityInHtml);
 	}
-
 
 }

@@ -1,5 +1,4 @@
-package com.mans.JobsSearchEngineI.view;
-
+package com.mans.JobsSearchEngine.view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -19,7 +18,6 @@ public class Loading extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-
 	/**
 	 * Create the frame.
 	 */
@@ -31,21 +29,18 @@ public class Loading extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setLocation( (screenSize.width - getWidth())/2,
-                (screenSize.height - getHeight())/2 );
+		setLocation((screenSize.width - getWidth()) / 2, (screenSize.height - getHeight()) / 2);
 		
-		ImageIcon imageQuestion = new 
-				ImageIcon(System.getProperty("user.dir") + "/res/images/rotate.png");
-		JLabel label = new JLabel(imageQuestion);
+		ImageIcon imageLoading = new ImageIcon(getClass().getResource("/rotate.png"));
+		JLabel label = new JLabel(imageLoading);
 		label.setBounds(38, 41, 46, 37);
 		contentPane.add(label);
-		
+
 		JLabel lblLoadingJobsShould = new JLabel("Loading Jobs Should Takes 30 Seconds");
 		lblLoadingJobsShould.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLoadingJobsShould.setBounds(78, 41, 250, 37);
 		contentPane.add(lblLoadingJobsShould);
-		
-		
+
 	}
 
 }

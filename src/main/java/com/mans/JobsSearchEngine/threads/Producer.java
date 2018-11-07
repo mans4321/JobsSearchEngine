@@ -15,23 +15,21 @@ public class Producer {
 	private List<String> cities;
 	private List<String> jobDes;
 	private BlockingQueue<JobDescription> queue;
-	
-	public Producer(List<String> cities, List<String> jobDes, 
-			BlockingQueue<JobDescription> queue) {
+
+	public Producer(List<String> cities, List<String> jobDes, BlockingQueue<JobDescription> queue) {
 		this.cities = cities;
 		this.jobDes = jobDes;
 		this.queue = queue;
 	}
 
-	
-	public void run(){
-		List<SearchWebsites> websites = new ArrayList<>(); 
+	public void run() {
+		List<SearchWebsites> websites = new ArrayList<>();
 		websites.add(new Indeed(cities, jobDes, queue));
-		websites.add( new SimplyHired(cities, jobDes, queue));
+		websites.add(new SimplyHired(cities, jobDes, queue));
 		websites.add(new Workopolis(cities, jobDes, queue));
-		
-		for(SearchWebsites website : websites)
-			new Thread(() ->website.search()).start();
+		System.out.println(cities.get(0));
+		for (SearchWebsites website : websites)
+			new Thread(() -> website.search()).start();
 
 	}
 }

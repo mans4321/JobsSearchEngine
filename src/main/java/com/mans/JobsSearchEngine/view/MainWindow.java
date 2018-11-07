@@ -1,4 +1,4 @@
-package com.mans.JobsSearchEngineI.view;
+package com.mans.JobsSearchEngine.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,8 +8,11 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -29,7 +32,7 @@ import javax.swing.border.CompoundBorder;
 import com.mans.JobsSearchEngine.model.JobDescription;
 import com.mans.JobsSearchEngine.threads.Consumer;
 import com.mans.JobsSearchEngine.threads.Producer;
-import com.mans.JobsSearchEngineI.utility.WordList;
+import com.mans.JobsSearchEngine.utility.WordList;
 
 public class MainWindow {
 
@@ -39,13 +42,14 @@ public class MainWindow {
 	private JLabel lblSearchKeywords;
 	private JLabel label;
 	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
-	private JLabel label_1;
+	private JLabel labelJob;
+	private JLabel labelSkilsIcon;
 	private JTextField jobLocation;
 	private JLabel lblYourYearsOf;
 	private JLabel lblExperience;
 	private JLabel lblJobLocations;
 	private JTextField experience;
+	private JLabel labelJobIcon;
 
 	/**
 	 * Launch the application.
@@ -81,16 +85,19 @@ public class MainWindow {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation( (screenSize.width - frame.getWidth())/2,
-                (screenSize.height - frame.getHeight())/2 );
+		frame.setLocation((screenSize.width - frame.getWidth()) / 2, (screenSize.height - frame.getHeight()) / 2);
 
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		
+		
+		////Label
 
 		jobTitle = new JTextField();
 		jobTitle.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		jobTitle.setBounds(129, 79, 267, 38);
+		jobTitle.setForeground(Color.black);
 		jobTitle.setBorder(compoundBorder);
 		frame.getContentPane().add(jobTitle);
 
@@ -98,6 +105,8 @@ public class MainWindow {
 		jobLocation.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		jobLocation.setBounds(129, 138, 267, 38);
 		jobLocation.setBorder(compoundBorder);
+		jobLocation.setForeground(Color.black);
+		
 		frame.getContentPane().add(jobLocation);
 
 		experience = new JTextField();
@@ -107,6 +116,7 @@ public class MainWindow {
 		frame.getContentPane().add(experience);
 
 		skils = new JTextArea();
+		skils.setWrapStyleWord(true);
 		skils.setLineWrap(true);
 		skils.setFont((new Font("Tahoma", Font.BOLD, 9)));
 		skils.setMargin(new Insets(10, 10, 10, 10));
@@ -126,21 +136,7 @@ public class MainWindow {
 		label.setFont(new Font("Tahoma", Font.BOLD, 11));
 		label.setBounds(36, 84, 93, 28);
 		frame.getContentPane().add(label);
-
-		ImageIcon imageWebsite = new ImageIcon(System.getProperty("user.dir") + "/res/images/all.png");
-		lblNewLabel = new JLabel(imageWebsite);
-		lblNewLabel.setBounds(66, 11, 376, 48);
-		frame.getContentPane().add(lblNewLabel);
-
-		ImageIcon imageQuestion = new ImageIcon(System.getProperty("user.dir") + "/res/images/question.png");
-		lblNewLabel_1 = new JLabel(imageQuestion);
-		lblNewLabel_1.setBounds(396, 70, 46, 38);
-		frame.getContentPane().add(lblNewLabel_1);
-
-		label_1 = new JLabel(imageQuestion);
-		label_1.setBounds(396, 279, 46, 38);
-		frame.getContentPane().add(label_1);
-
+		
 		lblYourYearsOf = new JLabel("Years of");
 		lblYourYearsOf.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblYourYearsOf.setBounds(36, 207, 109, 14);
@@ -150,7 +146,68 @@ public class MainWindow {
 		lblExperience.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblExperience.setBounds(56, 218, 73, 14);
 		frame.getContentPane().add(lblExperience);
+		
+		lblJobLocations = new JLabel("Job Location");
+		lblJobLocations.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblJobLocations.setBounds(36, 143, 93, 28);
+		frame.getContentPane().add(lblJobLocations);
+		
+		ImageIcon imageWebsite = new ImageIcon(getClass().getResource("/all.png"));
+		lblNewLabel = new JLabel(imageWebsite);
+		lblNewLabel.setBounds(66, 11, 376, 48);
+		frame.getContentPane().add(lblNewLabel);
+		
+	///////ICon 
 
+		ImageIcon imageQuestion = new ImageIcon(getClass().getResource("/question.png"));
+
+		labelJobIcon = new JLabel(imageQuestion);
+		labelJobIcon.setBounds(396, 74, 46, 38);
+		labelJobIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, " You can search for more than one job title\n"
+						+ "just separate jobs title by comma\n"
+						+ "E.g. Java Developer, C# Developer");
+			}
+
+		});
+		frame.getContentPane().add(labelJobIcon);
+		
+		JLabel labelLocationsIcon = new JLabel(imageQuestion);
+		labelLocationsIcon.setBounds(396, 133, 46, 38);
+		labelLocationsIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "You can search for more than one job location\n"
+						+ "just separate jobs location by comma\n"
+						+ "E.g. Montreal,Toronto");
+			}
+
+		});
+		frame.getContentPane().add(labelLocationsIcon);
+		
+		labelSkilsIcon = new JLabel(imageQuestion);
+		labelSkilsIcon.setBounds(396, 279, 46, 38);
+		labelSkilsIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, " your Skills will be used to score each job being retrieved\n"
+						+ "Then the Jobs will be shown in decreasing order\n"
+						+ "\nTips:\n\n"
+						+ "• Skills are separated by space.\n"
+						+ "• Include skill famous synonymous e.g JavaEE & EE \n"
+						+ "	   has the same meaning but you should include both.\n"
+						+ "• To improve the accurac Be specific. e.g do not include\n"
+						+ "   skills that are required by everone in you industry\n"
+						+ "	   For example, HTML shouldn't be include for a web developer.");
+			}
+		});
+		frame.getContentPane().add(labelSkilsIcon);
+		
+
+		
+	/// Button 	
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnNewButton.setForeground(new Color(255, 255, 255));
@@ -193,23 +250,16 @@ public class MainWindow {
 		});
 
 		frame.getContentPane().add(btnNewButton);
-
-		lblJobLocations = new JLabel("Job Locations");
-		lblJobLocations.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblJobLocations.setBounds(36, 143, 93, 28);
-		frame.getContentPane().add(lblJobLocations);
-
 		jobTitle.setText(getJobsTitleFromFile());
 		jobLocation.setText(getJobsLocationFromFile());
 		skils.setText(getSkilsFromFile());
 		experience.setText(getJobsExperienceFromFile());
+		
 
 	}
 
 	private String getSkilsFromFile() {
-		HashSet<String> list = WordList.getInstance().getJobKeywords();
 		String str = "";
-		int i = 0;
 		for (String city : WordList.getInstance().getJobKeywords())
 			str += city + " ";
 		return str;
@@ -222,8 +272,8 @@ public class MainWindow {
 	private String getJobsLocationFromFile() {
 		String str = "";
 		int i = 0;
-		for (String city : WordList.getInstance().getRememberMeJobsLocation()){
-			str += city ;
+		for (String city : WordList.getInstance().getRememberMeJobsLocation()) {
+			str += city;
 			if (WordList.getInstance().getJobKeywords().size() < (i + 1))
 				str += ", ";
 			i++;
@@ -234,8 +284,8 @@ public class MainWindow {
 	private String getJobsTitleFromFile() {
 		String str = "";
 		int i = 0;
-		for (String city : WordList.getInstance().getRememberMeJobsTitle()){
-			str += city;
+		for (String title : WordList.getInstance().getRememberMeJobsTitle()) {
+			str += title;
 			if (WordList.getInstance().getJobKeywords().size() < (i + 1))
 				str += ", ";
 			i++;

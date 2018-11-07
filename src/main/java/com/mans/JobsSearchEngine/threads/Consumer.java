@@ -6,9 +6,9 @@ import java.util.concurrent.BlockingQueue;
 
 import com.mans.JobsSearchEngine.model.JobDescription;
 import com.mans.JobsSearchEngine.model.Score;
-import com.mans.JobsSearchEngineI.utility.WordList;
-import com.mans.JobsSearchEngineI.view.ListOfJobs;
-import com.mans.JobsSearchEngineI.view.Loading;
+import com.mans.JobsSearchEngine.utility.WordList;
+import com.mans.JobsSearchEngine.view.ListOfJobs;
+import com.mans.JobsSearchEngine.view.Loading;
 
 /**
  * A consumer that takes elements from a BlockingQueue
@@ -70,7 +70,6 @@ public class Consumer implements Runnable {
 		new ListOfJobs(Joblist).setVisible(true);
 		
 	}
-
 
 	private void consume(JobDescription jobDescription) {
 		jobDescription.setScore(score.getScore(jobDescription.getJobDes()));
