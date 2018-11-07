@@ -1,4 +1,4 @@
-package com.mans.JobsSearchEngine.test;
+package com.mans.JobsSearchEngine;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
