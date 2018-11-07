@@ -27,7 +27,6 @@ public class Producer {
 		websites.add(new Indeed(cities, jobDes, queue));
 		websites.add(new SimplyHired(cities, jobDes, queue));
 		websites.add(new Workopolis(cities, jobDes, queue));
-		System.out.println(cities.get(0));
 		for (SearchWebsites website : websites)
 			new Thread(() -> website.search()).start();
 

@@ -1,4 +1,4 @@
-package linkeIn.com.man.linkedIn;
+package com.mans.JobsSearchEngine.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
