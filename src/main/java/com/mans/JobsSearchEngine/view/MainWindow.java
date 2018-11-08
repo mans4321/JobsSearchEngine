@@ -8,8 +8,6 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -32,6 +30,7 @@ import javax.swing.border.CompoundBorder;
 import com.mans.JobsSearchEngine.model.JobDescription;
 import com.mans.JobsSearchEngine.threads.Consumer;
 import com.mans.JobsSearchEngine.threads.Producer;
+import com.mans.JobsSearchEngine.utility.CleanText;
 import com.mans.JobsSearchEngine.utility.WordList;
 
 public class MainWindow {
@@ -87,9 +86,9 @@ public class MainWindow {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation((screenSize.width - frame.getWidth()) / 2, (screenSize.height - frame.getHeight()) / 2);
 
-		Border border = BorderFactory.createLineBorder(Color.BLACK);
+		Border border = BorderFactory.createLineBorder(new Color(23,162,184), 3);
 		CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(10, 10, 10, 10));
+				BorderFactory.createEmptyBorder(8, 8, 8, 8));
 		
 		
 		////Label
@@ -208,10 +207,15 @@ public class MainWindow {
 
 		
 	/// Button 	
+		Border borderbutton = BorderFactory.createLineBorder(new Color(23,162,184), 3);
+		CompoundBorder CompoundBorderbutton = BorderFactory.createCompoundBorder(borderbutton,
+				BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(66, 75, 244));
+		btnNewButton.setBorder(CompoundBorderbutton);
+		btnNewButton.setForeground(new Color(23,162,184));
+		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setBounds(209, 395, 89, 34);
 
 		btnNewButton.addActionListener(new ActionListener() {
@@ -237,7 +241,7 @@ public class MainWindow {
 				new Thread(() -> {
 					List<String> jobTitleLsit = getList(jobTitle.getText());
 					List<String> cities = getList(jobLocation.getText());
-					String skilsToLookFor = skils.getText();
+					List<String> skilsToLookFor = getList(skils.getText());
 					WordList.getInstance().writeToFile(skilsToLookFor, jobTitleLsit, cities, experience.getText());
 
 					BlockingQueue<JobDescription> queue = new LinkedBlockingQueue<>();
@@ -260,8 +264,14 @@ public class MainWindow {
 
 	private String getSkilsFromFile() {
 		String str = "";
-		for (String city : WordList.getInstance().getJobKeywords())
-			str += city + " ";
+		int i = 0;
+		for (String skill : WordList.getInstance().getJobKeywords()){
+			str += skill;
+			i++;
+			if ( i  < WordList.getInstance().getJobKeywords().size())
+				str += ", ";
+		}
+		str = CleanText.capitailizeWord(str);
 		return str;
 	}
 
@@ -274,10 +284,12 @@ public class MainWindow {
 		int i = 0;
 		for (String city : WordList.getInstance().getRememberMeJobsLocation()) {
 			str += city;
-			if (WordList.getInstance().getJobKeywords().size() < (i + 1))
-				str += ", ";
 			i++;
+			if ( i  < WordList.getInstance().getRememberMeJobsLocation().size())
+				str += ", ";
+			
 		}
+		str = CleanText.capitailizeWord(str);
 		return str;
 	}
 
@@ -286,21 +298,27 @@ public class MainWindow {
 		int i = 0;
 		for (String title : WordList.getInstance().getRememberMeJobsTitle()) {
 			str += title;
-			if (WordList.getInstance().getJobKeywords().size() < (i + 1))
-				str += ", ";
 			i++;
+			if ( i  < WordList.getInstance().getRememberMeJobsTitle().size() )
+				str += ", ";
 		}
+		str = CleanText.capitailizeWord(str);
 		return str;
 	}
 
 	protected List<String> getList(String text) {
 		List<String> list = new ArrayList<String>();
 		if (text.contains(",")) {
-			for (String jobInlist : text.split(","))
+			for (String jobInlist : text.split(",")){
+				jobInlist = CleanText.simpleCleanText(jobInlist);
 				list.add(jobInlist);
+			}
 		} else {
 			list.add(text.trim());
 		}
 		return list;
 	}
+	
+		
 }
+

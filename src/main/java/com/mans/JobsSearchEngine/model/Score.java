@@ -25,6 +25,7 @@ public class Score {
 
 	public Score(HashSet<String> kewwordsList) {
 		this.kewwordsList = kewwordsList;
+		System.out.println(kewwordsList);
 	}
 
 	private void setTotalAndMax() {

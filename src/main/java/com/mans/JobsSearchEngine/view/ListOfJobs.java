@@ -33,6 +33,7 @@ import javax.swing.text.DefaultCaret;
 
 import com.mans.JobsSearchEngine.model.JobDescription;
 import com.mans.JobsSearchEngine.model.Score;
+import com.mans.JobsSearchEngine.utility.CleanText;
 import com.mans.JobsSearchEngine.utility.WordList;
 
 public class ListOfJobs extends JFrame {
@@ -49,6 +50,7 @@ public class ListOfJobs extends JFrame {
 	 */
 	public ListOfJobs(JobDescription[] listOfJobs) {
 
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		// height of the task bar
@@ -60,48 +62,54 @@ public class ListOfJobs extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		Border border = BorderFactory.createLineBorder(Color.BLACK);
-		CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 		JSplitPane splitPane = new JSplitPane();
+		splitPane.setBackground(new Color(255, 255, 255));
 		splitPane.setResizeWeight(0.3);
 		splitPane.setOneTouchExpandable(true);
 		contentPane.add(splitPane, BorderLayout.CENTER);
 
+		Border border = BorderFactory.createLineBorder(new Color(23,162,184), 3);
+		CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(8, 8, 8, 8));
 		// Left panel
 
 		JPanel panelLeft = new JPanel();
-		panelLeft.setPreferredSize(new Dimension(getWidth() / 4, panelLeft.getHeight()));
+		panelLeft.setPreferredSize(new Dimension( (getWidth() / 4) +4 , panelLeft.getHeight()));
+		panelLeft.setLayout(new BorderLayout(4, 4));
+		panelLeft.setBackground(new Color(255, 255, 255));
 		splitPane.setLeftComponent(panelLeft);
-		panelLeft.setLayout(new BorderLayout(0, 0));
 
 		JLabel lblNewLabel = new JLabel("Job List", SwingConstants.CENTER);
 		lblNewLabel.setPreferredSize(new Dimension(panelLeft.getWidth(), 30));
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setForeground(Color.BLACK);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel.setForeground(new Color(23,162,184));
+		lblNewLabel.setBorder(compoundBorder);
 
 		JList<JobDescription> list = new JList(listOfJobs);
-		list.setSelectionForeground(new Color(0, 0, 0));
-		list.setSelectionBackground(new Color(255, 255, 255));
+		list.setSelectionForeground(new Color(23,162,184));
+		list.setSelectionBackground(new Color(214, 255, 179));
 		list.setFont(new Font("Tahoma", Font.BOLD, 13));
 		list.setForeground(Color.BLACK);
 		setList(list);
 		JScrollPane jScrollPaneJList = new JScrollPane(list);
+		jScrollPaneJList.setBackground(new Color(255,255,255));
 		jScrollPaneJList.setBorder(compoundBorder);
-
 		panelLeft.add(jScrollPaneJList, BorderLayout.CENTER);
 		panelLeft.add(lblNewLabel, BorderLayout.NORTH);
 
 		// Right panel
 		JPanel panel = new JPanel();
-		splitPane.setRightComponent(panel);
+		panel.setBackground(new Color(255, 255, 255));
 		panel.setLayout(new BorderLayout(4, 4));
+		splitPane.setRightComponent(panel);
 
 		JLabel lblNewLabel2 = new JLabel("Job Title", SwingConstants.CENTER);
+		lblNewLabel2.setBackground(new Color(255, 255, 255));
+		lblNewLabel2.setForeground(new Color(23,162,184));
+		lblNewLabel2.setBorder(compoundBorder);
 		lblNewLabel2.setPreferredSize(new Dimension(panelLeft.getWidth(), 30));
-		lblNewLabel2.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel2.setForeground(Color.BLACK);
+		lblNewLabel2.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel2.setPreferredSize(new Dimension(panel.getWidth(), 30));
 
 		JTextPane textPane = new JTextPane();
@@ -109,14 +117,20 @@ public class ListOfJobs extends JFrame {
 		textPane.setContentType("text/html");
 		textPane.setMargin(new Insets(10, 10, 10, 10));
 		JScrollPane jScrollPane = new JScrollPane(textPane);
+		jScrollPane.setBackground(new Color(255,255,255));
 		jScrollPane.setBorder(compoundBorder);
 		DefaultCaret caret = (DefaultCaret) textPane.getCaret(); // ←
 		caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
-
-		JButton btnNewButton = new JButton("Vist The Website");
+		
+		Border borderbutton = BorderFactory.createLineBorder(new Color(23,162,184), 3);
+		CompoundBorder CompoundBorderbutton = BorderFactory.createCompoundBorder(borderbutton,
+				BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		
+		JButton btnNewButton = new JButton("Click To Vist The Website");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(66, 75, 244));
+		btnNewButton.setBorder(CompoundBorderbutton);
+		btnNewButton.setForeground(new Color(23,162,184));
+		btnNewButton.setBackground(new Color(214, 255, 179));
 		btnNewButton.setPreferredSize(new Dimension(panel.getWidth(), 30));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -139,7 +153,7 @@ public class ListOfJobs extends JFrame {
 					JobDescription job = list.getSelectedValue();
 					textPane.setText(job.getHtmlJobDes());
 					lblNewLabel2.setText(
-							capitailizeWord(job.getJobTitle() + " - " + job.getCompanyName() + " - " + job.getCity()));
+							CleanText.capitailizeWord(job.getJobTitle() + " - " + job.getCompanyName() + " - " + job.getCity()));
 					url = job.getUrl();
 				}
 			}
@@ -149,7 +163,7 @@ public class ListOfJobs extends JFrame {
 		if (listOfJobs.length > 0) {
 			url = listOfJobs[0].getUrl();
 			textPane.setText(listOfJobs[0].getHtmlJobDes());
-			lblNewLabel2.setText(capitailizeWord(listOfJobs[0].getJobTitle() + " - " + listOfJobs[0].getCity()));
+			lblNewLabel2.setText(CleanText.capitailizeWord(listOfJobs[0].getJobTitle() + " - " + listOfJobs[0].getCity()));
 			list.setSelectedIndex(0);
 		}
 
@@ -165,17 +179,17 @@ public class ListOfJobs extends JFrame {
 				Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 				if (renderer instanceof JLabel && value instanceof JobDescription) {
 					// Here value will be of the Type 'JObD..'
-					((JLabel) renderer).setText(capitailizeWord(((JobDescription) value).getJobTitle()));
+					((JLabel) renderer).setText( getShortJobTitle(CleanText.capitailizeWord( ((JobDescription) value).getJobTitle())));
 				}
 				return renderer;
 			}
 		});
 	}
 
-	protected String getJobTitle(String jobTitle) {
+	protected String getShortJobTitle(String jobTitle) {
 		String str = "";
 		for (String string : jobTitle.split(" ")) {
-			if (str.length() > 30) {
+			if (str.length() > 20) {
 				str += "...";
 				return str;
 			}
@@ -184,28 +198,6 @@ public class ListOfJobs extends JFrame {
 		return str;
 	}
 
-	protected String capitailizeWord(String str) {
-		str = str.toLowerCase();
-		StringBuffer s = new StringBuffer();
 
-		// Declare a character of space
-		// To identify that the next character is the starting
-		// of a new word
-		char ch = ' ';
-		for (int i = 0; i < str.length(); i++) {
-
-			// If previous character is space and current
-			// character is not space then it shows that
-			// current letter is the starting of the word
-			if (ch == ' ' && str.charAt(i) != ' ')
-				s.append(Character.toUpperCase(str.charAt(i)));
-			else
-				s.append(str.charAt(i));
-			ch = str.charAt(i);
-		}
-
-		// Return the string with trimming
-		return s.toString().trim();
-	}
 
 }

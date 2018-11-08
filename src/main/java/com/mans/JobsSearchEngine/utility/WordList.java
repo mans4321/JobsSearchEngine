@@ -19,6 +19,8 @@ public class WordList {
 	private HashSet<String> rememberMeJobsTitle;
 	private HashSet<String> rememberMeJobsLocation;
 	private HashSet<String> rememberMeExperience;
+	private HashSet<String> jobSkils;
+	
 	private static WordList wordList;
 
 	private WordList() {
@@ -26,9 +28,12 @@ public class WordList {
 		rememberMeExperience = getWordsFromFile("rememberMeExperience.txt");
 		stopWords = getWordsFromFile("longStopWords.txt");
 		jobKeywords = getWordsFromFile("jobKeywords.txt");
+		jobSkils		= getJobSkils();
 		legalEntityTypes = getWordsFromFile("legalEntityTypes.txt");
 		rememberMeJobsLocation = getWordsFromFile("rememberMeJobsLocation.txt");
+		
 	}
+
 
 	private HashSet<String> getWordsFromFile(String fileName) {
 		
@@ -46,7 +51,7 @@ public class WordList {
 
             while((line = bufferedReader.readLine()) != null) {
             	if (!line.trim().equals("")){
-            		list.add(line);
+            		list.add(line.trim());
             	}
 				
             }   
@@ -69,10 +74,9 @@ public class WordList {
 
 		
 
-	public void writeToFile(String skils, List<String> jobTitles, List<String> locations, String experience) {
+	public void writeToFile(List<String> skils, List<String> jobTitles, List<String> locations, String experience) {
 		StringBuilder stringBuilder = new StringBuilder();
-		skils = skils.trim();
-		for (String skil : skils.split(" ")) {
+		for (String skil : skils) {
 			stringBuilder.append(skil);
 			stringBuilder.append("\n");
 		}
@@ -153,6 +157,22 @@ public class WordList {
 
 	public HashSet<String> getLegalEntityTypes() {
 		return legalEntityTypes;
+	}
+	
+	public HashSet<String> getJobSkils() {
+		HashSet<String> skils = new HashSet<String>();
+		for(String skil : jobKeywords)
+		{
+			if(skil.contains(" ")){
+				for(String subSkill : skil.split(" ")){
+					skils.add(subSkill.trim());
+				}
+			}else{
+				skils.add(skil.trim());
+			}
+				
+		}
+		return skils;
 	}
 
 	public String getRememberMeExperience() {

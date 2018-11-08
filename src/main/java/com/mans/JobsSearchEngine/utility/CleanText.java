@@ -28,7 +28,7 @@ public class CleanText {
 	public static String simpleCleanText(String text) {
 		text = clearSymbols(text);
 		text = caseFold(text); // case fold the token to lowercase
-		return text;
+		return text.trim();
 	}
 
 	private static String cleanText(String text) {
@@ -41,7 +41,7 @@ public class CleanText {
 	}
 
 	private static String clearSymbols(String text) {
-		return text.replaceAll("[~\\[!#$%^&*(={}.|?><\\.,•)/:'\\]]", " ").trim();
+		return text.replaceAll("[~\\[!$%^&*(={}.|?><\\.,•)/:'\\]]", " ").trim();
 	}
 
 	private static String removeNumbers(String content) {
@@ -82,4 +82,29 @@ public class CleanText {
 		}
 		return companyName;
 	}
+	
+	public static String capitailizeWord(String str) {
+		str = str.toLowerCase();
+		StringBuffer s = new StringBuffer();
+
+		// Declare a character of space
+		// To identify that the next character is the starting
+		// of a new word
+		char ch = ' ';
+		for (int i = 0; i < str.length(); i++) {
+
+			// If previous character is space and current
+			// character is not space then it shows that
+			// current letter is the starting of the word
+			if (ch == ' ' && str.charAt(i) != ' ')
+				s.append(Character.toUpperCase(str.charAt(i)));
+			else
+				s.append(str.charAt(i));
+			ch = str.charAt(i);
+		}
+
+		// Return the string with trimming
+		return s.toString().trim();
+	}
+
 }

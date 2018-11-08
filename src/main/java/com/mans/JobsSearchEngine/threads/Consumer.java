@@ -24,7 +24,7 @@ public class Consumer implements Runnable {
 
 	public Consumer(BlockingQueue<JobDescription> queue, Loading loading) {
 		this.queue = queue;
-		this.score = new Score(WordList.getInstance().getJobKeywords());
+		this.score = new Score(WordList.getInstance().getJobSkils());
 		sortedJob = new TreeSet<JobDescription>(Collections.reverseOrder());
 		this.loading = loading;
 	}
