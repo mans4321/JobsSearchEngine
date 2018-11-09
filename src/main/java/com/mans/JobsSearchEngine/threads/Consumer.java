@@ -21,8 +21,10 @@ public class Consumer implements Runnable {
 	private Score score;
 	private TreeSet<JobDescription> sortedJob;
 	private Loading loading;
+	private long start ;
 
 	public Consumer(BlockingQueue<JobDescription> queue, Loading loading) {
+		start = System.currentTimeMillis();
 		this.queue = queue;
 		this.score = new Score(WordList.getInstance().getJobSkils());
 		sortedJob = new TreeSet<JobDescription>(Collections.reverseOrder());
@@ -45,7 +47,8 @@ public class Consumer implements Runnable {
 					j--;
 					i++;
 					if (i == 3) {
-						System.out.println("done" + j);
+						long time = (System.currentTimeMillis() - start)/1000;
+						System.out.println("done"+ time + " " + j);
 						showJobList();
 						break;
 					}

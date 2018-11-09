@@ -36,7 +36,7 @@ public class Loading extends JFrame {
 		label.setBounds(38, 41, 46, 37);
 		contentPane.add(label);
 
-		JLabel lblLoadingJobsShould = new JLabel("Loading Jobs Should Takes 30 Seconds");
+		JLabel lblLoadingJobsShould = new JLabel("Loading Jobs Should Takes 1 Minute");
 		lblLoadingJobsShould.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLoadingJobsShould.setBounds(78, 41, 250, 37);
 		contentPane.add(lblLoadingJobsShould);

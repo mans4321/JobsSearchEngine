@@ -192,14 +192,14 @@ public class MainWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JOptionPane.showMessageDialog(null, " your Skills will be used to score each job being retrieved\n"
-						+ "Then the Jobs will be shown in decreasing order\n"
+						+ "Then Jobs will be shown in decreasing order\n"
 						+ "\nTips:\n\n"
-						+ "• Skills are separated by space.\n"
+						+ "• Skills are separated by cooma.\n"
 						+ "• Include skill famous synonymous e.g JavaEE & EE \n"
 						+ "	   has the same meaning but you should include both.\n"
-						+ "• To improve the accurac Be specific. e.g do not include\n"
-						+ "   skills that are required by everone in you industry\n"
-						+ "	   For example, HTML shouldn't be include for a web developer.");
+						+ "• To improve the accuracy Be specific. e.g do not include\n"
+						+ "   skills that are required by everyone in your industry\n"
+						+ "	   For example, HTML shouldn't be included for a web develope.");
 			}
 		});
 		frame.getContentPane().add(labelSkilsIcon);

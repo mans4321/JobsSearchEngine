@@ -163,7 +163,7 @@ public class ListOfJobs extends JFrame {
 		if (listOfJobs.length > 0) {
 			url = listOfJobs[0].getUrl();
 			textPane.setText(listOfJobs[0].getHtmlJobDes());
-			lblNewLabel2.setText(CleanText.capitailizeWord(listOfJobs[0].getJobTitle() + " - " + listOfJobs[0].getCity()));
+			lblNewLabel2.setText(CleanText.capitailizeWord(listOfJobs[0].getJobTitle() + "<br/>\t" + listOfJobs[0].getCity()));
 			list.setSelectedIndex(0);
 		}
 
@@ -179,7 +179,10 @@ public class ListOfJobs extends JFrame {
 				Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 				if (renderer instanceof JLabel && value instanceof JobDescription) {
 					// Here value will be of the Type 'JObD..'
-					((JLabel) renderer).setText( getShortJobTitle(CleanText.capitailizeWord( ((JobDescription) value).getJobTitle())));
+					JobDescription job = (JobDescription) value;
+					String jobTitle    = job.getJobTitle();
+					String jobCompany  = job.getCompanyName(); 
+					((JLabel) renderer).setText( getShortJobTitle( CleanText.capitailizeWord( jobTitle )));
 				}
 				return renderer;
 			}
@@ -189,11 +192,11 @@ public class ListOfJobs extends JFrame {
 	protected String getShortJobTitle(String jobTitle) {
 		String str = "";
 		for (String string : jobTitle.split(" ")) {
-			if (str.length() > 20) {
+			if (str.length() > 27) {
 				str += "...";
 				return str;
 			}
-			str += string;
+			str += string+" ";
 		}
 		return str;
 	}
