@@ -39,7 +39,6 @@ public abstract class SearchWebsites {
 
 		}
 		JobDescription fake = new JobDescription(null, null, null, null, null, null);
-		System.out.println("done from" + getClass().getSimpleName() );
 		queue.add(fake);
 	}
 
