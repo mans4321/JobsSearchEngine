@@ -118,7 +118,6 @@ public class ListOfJobs extends JFrame {
 		JScrollPane jScrollPane = new JScrollPane(textPane);
 		jScrollPane.setBackground(new Color(255,255,255));
 		jScrollPane.setBorder(compoundBorder);
-		DefaultCaret caret = (DefaultCaret) textPane.getCaret(); // ←
 		Border borderbutton = BorderFactory.createLineBorder(new Color(23,162,184), 3);
 		CompoundBorder CompoundBorderbutton = BorderFactory.createCompoundBorder(borderbutton,
 				BorderFactory.createEmptyBorder(15, 15, 15, 15));
