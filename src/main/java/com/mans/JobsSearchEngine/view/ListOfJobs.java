@@ -119,8 +119,6 @@ public class ListOfJobs extends JFrame {
 		jScrollPane.setBackground(new Color(255,255,255));
 		jScrollPane.setBorder(compoundBorder);
 		DefaultCaret caret = (DefaultCaret) textPane.getCaret(); // ←
-		caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
-		
 		Border borderbutton = BorderFactory.createLineBorder(new Color(23,162,184), 3);
 		CompoundBorder CompoundBorderbutton = BorderFactory.createCompoundBorder(borderbutton,
 				BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -154,6 +152,7 @@ public class ListOfJobs extends JFrame {
 					lblNewLabel2.setText(
 							CleanText.capitailizeWord(job.getJobTitle() + " - " + job.getCompanyName() + " - " + job.getCity()));
 					url = job.getUrl();
+					textPane.setCaretPosition(0);
 				}
 			}
 		});

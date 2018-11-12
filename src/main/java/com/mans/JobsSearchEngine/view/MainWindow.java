@@ -117,7 +117,7 @@ public class MainWindow {
 		skils = new JTextArea();
 		skils.setWrapStyleWord(true);
 		skils.setLineWrap(true);
-		skils.setFont((new Font("Tahoma", Font.BOLD, 9)));
+		skils.setFont(new Font("Tahoma", Font.BOLD, 11));
 		skils.setMargin(new Insets(10, 10, 10, 10));
 		JScrollPane jScrollPane = new JScrollPane(skils);
 		jScrollPane.setBounds(129, 258, 267, 106);
