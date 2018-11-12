@@ -62,9 +62,11 @@ public class Consumer implements Runnable {
 
 	private void showJobList() {
 		if(loading != null)
-			loading.setVisible(false);;
+			loading.setVisible(false);
+		
 		JobDescription[] Joblist = new JobDescription[sortedJob.size()] ;
 		sortedJob.toArray(Joblist);
+		System.out.println("number of jobs " + sortedJob.size());
 		new ListOfJobs(Joblist).setVisible(true);
 		
 	}

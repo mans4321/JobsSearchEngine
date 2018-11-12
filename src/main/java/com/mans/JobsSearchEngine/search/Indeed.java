@@ -13,10 +13,11 @@ import org.jsoup.select.Elements;
 import com.mans.JobsSearchEngine.model.JobDescription;
 
 public class Indeed extends SearchWebsites {
+	
 
+ 
 	public Indeed(List<String> cities, List<String> searchKeywords, BlockingQueue<JobDescription> queue) {
 		super(cities, searchKeywords, queue);
-
 	}
 
 	protected void crawler(String jobDes, String city) {
@@ -24,8 +25,8 @@ public class Indeed extends SearchWebsites {
 		Document doc = null;
 		HashMap<String, Integer> removeDuplicate = new HashMap<String, Integer>();
 		int i = 0;
-		for (i = 0; i <= 100; i += 20) {
-
+		for (i = 0; i < 40; i += 20) {
+			ii++;
 			try {
 				doc = Jsoup.connect("https://www.indeed.ca/jobs?q=" + jobDes + "&l=" + city + "&start=" + i).get();
 			} catch (IOException e1) {
@@ -54,7 +55,8 @@ public class Indeed extends SearchWebsites {
 		String jobDesInHtml = "div.jobsearch-JobComponent-description";
 		String companyNameInHtml = "div.icl-u-lg-mr--sm.icl-u-xs-mr--xs";
 		String jobTitleInHtml = "[class$='jobsearch-JobInfoHeader-title']";
-		String cityInHtml = "div.jobsearch-InlineCompanyRating > div:not(.icl-u-lg-mr--sm)";// TODO
+		String cityInHtml = "div.jobsearch-InlineCompanyRating > div:not(.icl-u-lg-mr--sm)";
+		ii++;
 		extract(url, jobDesInHtml, companyNameInHtml, jobTitleInHtml, cityInHtml);
 	}
 

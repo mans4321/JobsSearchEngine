@@ -24,8 +24,8 @@ public class SimplyHired extends SearchWebsites {
 		HashMap<String, Integer> removeDuplicate = new HashMap<String, Integer>();
 		int i = 0;
 
-		for (i = 1; i < 6; i++) {
-
+		for (i = 1; i < 3; i++) {
+			ii++;
 			try {
 				doc = Jsoup.connect("https://www.simplyhired.ca/search?q=" + jobDes + "&l=" + city + "&pn=" + i).get();
 			} catch (IOException e1) {
@@ -53,6 +53,7 @@ public class SimplyHired extends SearchWebsites {
 		String companyNameInHtml = "span.company";
 		String jobTitleInHtml = "h1[itemprop=title]";
 		String cityInHtml = "span.location";
+		ii++;
 		extract(url, jobDesInHtml, companyNameInHtml, jobTitleInHtml, cityInHtml);
 	}
 

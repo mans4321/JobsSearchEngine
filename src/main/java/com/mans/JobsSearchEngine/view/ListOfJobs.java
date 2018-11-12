@@ -65,8 +65,8 @@ public class ListOfJobs extends JFrame {
 
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setBackground(new Color(255, 255, 255));
-		splitPane.setResizeWeight(0.3);
 		splitPane.setOneTouchExpandable(true);
+		splitPane.setDividerLocation( (int)( screenSize.width * 0.25 ));
 		contentPane.add(splitPane, BorderLayout.CENTER);
 
 		Border border = BorderFactory.createLineBorder(new Color(23,162,184), 3);
@@ -75,7 +75,6 @@ public class ListOfJobs extends JFrame {
 		// Left panel
 
 		JPanel panelLeft = new JPanel();
-		panelLeft.setPreferredSize(new Dimension( (getWidth() / 4) +4 , panelLeft.getHeight()));
 		panelLeft.setLayout(new BorderLayout(4, 4));
 		panelLeft.setBackground(new Color(255, 255, 255));
 		splitPane.setLeftComponent(panelLeft);

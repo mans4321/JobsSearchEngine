@@ -17,7 +17,8 @@ public abstract class SearchWebsites {
 	protected List<String> searchKeywords;
 	private String htmlHeader;
 	private String htmlFooter;
-
+	protected int ii ; 
+	
 	public SearchWebsites(List<String> cities, List<String> searchKeywords, BlockingQueue<JobDescription> queue) {
 
 		this.cities = cities;
@@ -25,6 +26,7 @@ public abstract class SearchWebsites {
 		this.searchKeywords = searchKeywords;
 		htmlHeader = "<!DOCTYPE html><html><head><title></title></head><body>";
 		htmlFooter = "</body></html>";
+		ii =0;
 	}
 
 	protected abstract void crawler(String keyword, String city);
@@ -40,6 +42,7 @@ public abstract class SearchWebsites {
 		}
 		JobDescription fake = new JobDescription(null, null, null, null, null, null);
 		queue.add(fake);
+		System.out.println(" count "+ getClass().getSimpleName() + " " +this.ii );
 	}
 
 	protected void extract(String url, String jobDesInHtml, String companyNameInHtml, String jobTitleInHtml,

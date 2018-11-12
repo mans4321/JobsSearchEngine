@@ -24,11 +24,11 @@ public class Workopolis extends SearchWebsites {
 		HashMap<String, Integer> removeDuplicate = new HashMap<String, Integer>();
 		int i = 0;
 
-		for (i = 1; i < 6; i++) {
-
+		for (i = 1; i < 3; i++) {
+			ii++;
 			try {
 				doc = Jsoup.connect(
-						"https://www.workopolis.com/jobsearch/find-jobs?ak=" + jobDes + "&l=" + city + "&lg=en&pn=" + i)
+						"https://www.workopolis.com/jobsearch/find-jobs?ak=" + jobDes + "&l=" + city + "&lg=en&pn=" + i )
 						.get();
 			} catch (IOException e1) {
 				System.err.println("https://www.workopolis.com/jobsearch/find-jobs?ak=" + jobDes + "&l=" + city
@@ -56,6 +56,7 @@ public class Workopolis extends SearchWebsites {
 		String companyNameInHtml = "div.ViewJobHeader-company";
 		String jobTitleInHtml = "div.ViewJobHeader-title";
 		String cityInHtml = "span.ViewJobHeader-property";
+		ii++;
 		extract(url, jobDesInHtml, companyNameInHtml, jobTitleInHtml, cityInHtml);
 
 	}
