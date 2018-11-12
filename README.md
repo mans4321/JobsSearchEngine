@@ -4,7 +4,7 @@
 <p>
 	<h4>It has the following features:</h4>
 	<ul>
-		<li>It seach for jobs in three websites namely Indeed,Simply Hired, and Workopolis.</li>
+		<li>It retrieved jobs from three websites namely Indeed,Simply Hired, and Workopolis.</li>
 		<li>You can search for more than one job title, just separate job titles by comma.</li>
 		<li>You can search for more than one job location, just separate job locations by comma.</li>
 		<li>If you have a specific skills you can enter these skills and the application will<br>
